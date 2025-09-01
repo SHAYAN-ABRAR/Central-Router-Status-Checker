@@ -1,0 +1,53 @@
+{
+    "timestamp": "2025-09-01 12:17:37",
+    "devices": [
+        {
+            "wire_type": "wired",
+            "macaddr": "F8-D1-11-B5-44-78",
+            "ipaddr": "192.168.0.24",
+            "hostname": "LEO-MS-7529"
+        },
+        {
+            "wire_type": "wired",
+            "macaddr": "40-8D-5C-21-72-F6",
+            "ipaddr": "192.168.0.27",
+            "hostname": "TPUSER"
+        }
+    ],
+    "router_status": {
+        "WAN": {
+            "MAC Address": "C4-E9-83-EF-59-3D",
+            "IP Address": "192.168.66.117",
+            "Subnet Mask": "255.255.255.0",
+            "Default Gateway": "192.168.66.25",
+            "Primary DNS": "192.168.66.25",
+            "Secondary DNS": "192.168.66.1",
+            "Connection Type": "Dynamic IP"
+        },
+        "LAN": {
+            "MAC Address": "C4-E9-83-EF-59-3C",
+            "IP Address": "192.168.0.1",
+            "Subnet Mask": "255.255.255.0",
+            "DHCP": "On"
+        },
+        "Wireless 2.4GHz": {
+            "Network Name (SSID)": "TP-Link_593D",
+            "Wireless Radio": "On",
+            "Mode": "802.11b/g/n mixed",
+            "Channel Width": "Auto",
+            "Channel": "auto (Current Channel 6)",
+            "MAC Address": "C4-E9-83-EF-59-3C",
+            "WDS Status": "Disabled"
+        },
+        "Guest Network 2.4GHz": {
+            "Network Name (SSID)": "TP-Link_Guest_593C",
+            "Hide SSID": "Off",
+            "Wireless Radio": "Off",
+            "Allow guests to see each other": "Off"
+        },
+        "Product Info": {
+            "Firmware Version": "1.0 Build 20190101 rel.12345",
+            "Hardware Version": "Archer C6 v2.0"
+        }
+    }
+}
