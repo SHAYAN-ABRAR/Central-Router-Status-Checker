@@ -14,13 +14,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from dotenv import load_dotenv
 import argparse
-
-# Load environment variables for credentials
-load_dotenv()
-USERNAME = os.getenv("ROUTER_USERNAME", "admin")
-PASSWORD = os.getenv("ROUTER_PASSWORD", "admin")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -37,9 +31,9 @@ def get_auth_cookie(username, password, use_md5=True):
     b64_auth = base64.b64encode(auth_str.encode('utf-8')).decode('utf-8')
     return f"Basic {b64_auth}"
 
-def login_wr941hp(router_url="http://192.168.100.108", login_path="/userRpm/LoginRpm.htm"):
+def login_wr941hp(router_url, username, password, login_path="/userRpm/LoginRpm.htm"):
     session = requests.Session()
-    auth_cookie = get_auth_cookie(USERNAME, PASSWORD, use_md5=True)
+    auth_cookie = get_auth_cookie(username, password, use_md5=True)
     domain = urlparse(router_url).netloc
     session.cookies.set("Authorization", auth_cookie, path="/", domain=domain)
     login_url = router_url + login_path
@@ -278,9 +272,9 @@ def print_connected_devices_and_status(session, token, router_url, output_file):
     save_to_json(output_data, output_file)
     print(f"\n***Output saved to {output_file}***")
 
-def get_wr941hp_info(router_url):
+def get_wr941hp_info(router_url, username, password):
     output_file = "wr941hp_status.json"
-    session, final_url, resp_text = login_wr941hp(router_url)
+    session, final_url, resp_text = login_wr941hp(router_url, username, password)
     if session:
         token = extract_token_from_url(final_url)
         if not token:
@@ -421,8 +415,8 @@ def scrape_c54_info(network_status_url, network_map_url):
             username_field = driver.find_element(By.ID, "userName")
             password_field = driver.find_element(By.ID, "pcPassword")
             login_button = driver.find_element(By.ID, "loginBtn")
-            username_field.send_keys(USERNAME)
-            password_field.send_keys(PASSWORD)
+            username_field.send_keys("admin")  # Default for Archer C54
+            password_field.send_keys("admin")  # Default for Archer C54
             login_button.click()
             logger.info("Logged in successfully")
             WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((By.ID, "loginBtn")))
@@ -536,9 +530,9 @@ def get_archer_c54_info(network_status_url, network_map_url):
     scrape_c54_info(network_status_url, network_map_url)
 
 # Main Function
-def main(router_url=None):
+def main(router_url=None, username="admin", password="admin"):
     if not router_url:
-        print("Error: No router URL provided. Usage: python index.py <router_url>")
+        print("Error: No router URL provided. Usage: python index.py <router_url> [<username> [<password>]]")
         print("Supported formats:")
         print("- TL-WR941HP: e.g., http://192.168.1.1")
         print("- Archer C6: e.g., https://emulator.tp-link.com/c6-eu-v2/data/status.json")
@@ -555,7 +549,7 @@ def main(router_url=None):
     # Determine router type based on URL
     if router_url.startswith('http://192.168'):
         print(f"\nFetching info for {router_url} (TL-WR941HP)...")
-        get_wr941hp_info(router_url)
+        get_wr941hp_info(router_url, username, password)
     elif router_url.endswith('status.json'):
         print(f"\nFetching info for {router_url} (TP-Link Archer C6)...")
         get_archer_c6_info(router_url)
@@ -576,5 +570,12 @@ def main(router_url=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Fetch TP-Link router information.")
     parser.add_argument("router_url", nargs='?', default=None, help="URL of the router (e.g., http://192.168.1.1, https://emulator.tp-link.com/c6-eu-v2/data/status.json, etc.)")
+    parser.add_argument("username", nargs='?', default="admin", help="Username for TL-WR941HP authentication (default: admin)")
+    parser.add_argument("password", nargs='?', default="admin", help="Password for TL-WR941HP authentication (default: admin)")
     args = parser.parse_args()
-    main(args.router_url)
+    main(args.router_url, args.username, args.password)
+
+# python index.py "http://192.168.1.1"
+# python index.py "https://emulator.tp-link.com/c6-eu-v2/data/status.json"
+# python index.py "https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus"
+# python index.py "https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap"
