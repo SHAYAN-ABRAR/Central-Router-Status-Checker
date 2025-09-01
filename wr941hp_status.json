@@ -1,0 +1,45 @@
+{
+    "timestamp": "2025-09-01 17:07:09",
+    "devices": [
+        {
+            "name": "Redmi-Note-9S",
+            "mac_addr": "DE-C9-22-9E-05-42",
+            "ip_addr": "192.168.0.100",
+            "lease_time": "01:47:55"
+        },
+        {
+            "name": "ABRAR",
+            "mac_addr": "C4-23-60-87-10-A9",
+            "ip_addr": "192.168.0.101",
+            "lease_time": "01:56:29"
+        }
+    ],
+    "router_status": {
+        "lan": {
+            "mac_address": "7C-8B-CA-27-B6-E0",
+            "ip_address": "192.168.0.1",
+            "subnet_mask": "255.255.255.0"
+        },
+        "wan": {
+            "mac_address": "7C-8B-CA-27-B6-E1",
+            "ip_address": "0.0.0.0",
+            "subnet_mask": "0.0.0.0",
+            "gateway": "0.0.0.0",
+            "dns": "0.0.0.0 , 0.0.0.0",
+            "connection_type": "Dynamic IP"
+        },
+        "wireless": {
+            "ssid": "TP-LINK_B6E0, TP-LINK_GUEST_B6E0"
+        },
+        "system": {
+            "firmware_version": "3.16.9 Build 20211210 Rel.36206n ",
+            "hardware_version": "TL-WR941HP v1 00000000"
+        },
+        "traffic": {
+            "bytes_received": "0",
+            "bytes_sent": "0",
+            "packets_received": "0",
+            "packets_sent": "0"
+        }
+    }
+}

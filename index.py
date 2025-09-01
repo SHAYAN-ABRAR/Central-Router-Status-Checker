@@ -575,7 +575,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args.router_url, args.username, args.password)
 
-# python index.py "http://192.168.1.1"        **FOR TL-WR941HP**
-# python index.py "https://emulator.tp-link.com/c6-eu-v2/data/status.json"     **FOR ARCHER C6**
+# python index.py "http://192.168.0.1" "admin" "admin"                                        **FOR TL-WR941HP**
+# python index.py "https://emulator.tp-link.com/c6-eu-v2/data/status.json"                    **FOR ARCHER C6**
 # python index.py "https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus"     **FOR ARCHER C54 (Network Status)**
 # python index.py "https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap"           **FOR ARCHER C54 (Client List)**
