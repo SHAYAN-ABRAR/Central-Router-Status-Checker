@@ -15,6 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from dotenv import load_dotenv
+import argparse
 
 # Load environment variables for credentials
 load_dotenv()
@@ -39,7 +40,8 @@ def get_auth_cookie(username, password, use_md5=True):
 def login_wr941hp(router_url="http://192.168.100.108", login_path="/userRpm/LoginRpm.htm"):
     session = requests.Session()
     auth_cookie = get_auth_cookie(USERNAME, PASSWORD, use_md5=True)
-    session.cookies.set("Authorization", auth_cookie, path="/", domain="192.168.100.108")
+    domain = urlparse(router_url).netloc
+    session.cookies.set("Authorization", auth_cookie, path="/", domain=domain)
     login_url = router_url + login_path
     params = {"Save": "Save"}
     try:
@@ -276,8 +278,7 @@ def print_connected_devices_and_status(session, token, router_url, output_file):
     save_to_json(output_data, output_file)
     print(f"\n***Output saved to {output_file}***")
 
-def get_wr941hp_info():
-    router_url = "http://192.168.100.108"
+def get_wr941hp_info(router_url):
     output_file = "wr941hp_status.json"
     session, final_url, resp_text = login_wr941hp(router_url)
     if session:
@@ -293,7 +294,7 @@ def get_wr941hp_info():
                 print_connected_devices_and_status(session, token, router_url, output_file)
 
 # Archer C6 Functions
-def fetch_c6_info(url="https://emulator.tp-link.com/c6-eu-v2/data/status.json", output_file="archer_c6_status.json"):
+def fetch_c6_info(url, output_file="archer_c6_status.json"):
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
@@ -394,15 +395,14 @@ def fetch_c6_info(url="https://emulator.tp-link.com/c6-eu-v2/data/status.json", 
         print(f"Error parsing JSON: {e}")
         return None
 
-def get_archer_c6_info():
-    fetch_c6_info()
+def get_archer_c6_info(url):
+    fetch_c6_info(url)
 
 # Archer C54 Functions
 def clean_text(text):
     return text.strip().replace('\n', '').replace('\t', '') if text else 'Not Found'
 
-def scrape_c54_info(network_status_url="https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus", 
-                    network_map_url="https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap"):
+def scrape_c54_info(network_status_url, network_map_url):
     try:
         for url in [network_status_url, network_map_url]:
             parsed_url = urlparse(url)
@@ -532,34 +532,49 @@ def scrape_c54_info(network_status_url="https://emulator.tp-link.com/C54v1-US-Ro
     finally:
         driver.quit()
 
-def get_archer_c54_info():
-    scrape_c54_info()
+def get_archer_c54_info(network_status_url, network_map_url):
+    scrape_c54_info(network_status_url, network_map_url)
 
-# Main Menu
-def main():
-    while True:
-        print("\nTP-Link Router Information Viewer")
-        print("Select a model:")
-        print("1. TL-WR941HP")
-        print("2. TP-Link Archer C6")
-        print("3. TP-Link Archer C54")
-        print("4. Exit")
-        choice = input("Enter your choice (1-4): ")
-        
-        if choice == '1':
-            print("\nFetching info for TL-WR941HP...")
-            get_wr941hp_info()
-        elif choice == '2':
-            print("\nFetching info for Archer C6...")
-            get_archer_c6_info()
-        elif choice == '3':
-            print("\nFetching info for Archer C54...")
-            get_archer_c54_info()
-        elif choice == '4':
-            print("Exiting program.")
-            break
-        else:
-            print("Invalid choice. Please try again.")
+# Main Function
+def main(router_url=None):
+    if not router_url:
+        print("Error: No router URL provided. Usage: python index.py <router_url>")
+        print("Supported formats:")
+        print("- TL-WR941HP: e.g., http://192.168.1.1")
+        print("- Archer C6: e.g., https://emulator.tp-link.com/c6-eu-v2/data/status.json")
+        print("- Archer C54 (Network Status): e.g., https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus")
+        print("- Archer C54 (Client List): e.g., https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap")
+        return
+    
+    # Default URLs for Archer C54
+    default_c54_urls = {
+        'network_status_url': 'https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus',
+        'network_map_url': 'https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap'
+    }
+    
+    # Determine router type based on URL
+    if router_url.startswith('http://192.168'):
+        print(f"\nFetching info for {router_url} (TL-WR941HP)...")
+        get_wr941hp_info(router_url)
+    elif router_url.endswith('status.json'):
+        print(f"\nFetching info for {router_url} (TP-Link Archer C6)...")
+        get_archer_c6_info(router_url)
+    elif router_url.endswith('#networkStatus'):
+        print(f"\nFetching info for TP-Link Archer C54 (Network Status: {router_url}, Client List: {default_c54_urls['network_map_url']})...")
+        get_archer_c54_info(router_url, default_c54_urls['network_map_url'])
+    elif router_url.endswith('#networkMap'):
+        print(f"\nFetching info for TP-Link Archer C54 (Network Status: {default_c54_urls['network_status_url']}, Client List: {router_url})...")
+        get_archer_c54_info(default_c54_urls['network_status_url'], router_url)
+    else:
+        print(f"Error: Invalid router URL provided: {router_url}")
+        print("Supported formats:")
+        print("- TL-WR941HP: e.g., http://192.168.1.1")
+        print("- Archer C6: e.g., https://emulator.tp-link.com/c6-eu-v2/data/status.json")
+        print("- Archer C54 (Network Status): e.g., https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus")
+        print("- Archer C54 (Client List): e.g., https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Fetch TP-Link router information.")
+    parser.add_argument("router_url", nargs='?', default=None, help="URL of the router (e.g., http://192.168.1.1, https://emulator.tp-link.com/c6-eu-v2/data/status.json, etc.)")
+    args = parser.parse_args()
+    main(args.router_url)
