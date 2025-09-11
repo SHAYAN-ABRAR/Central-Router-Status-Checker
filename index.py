@@ -1088,11 +1088,16 @@ if __name__ == "__main__":
     main(args.router_url, args.username, args.password)
 
 # python index.py "http://192.168.0.1" "admin" "admin"                                        **FOR TL-WR941HP**
+
 # python index.py "https://emulator.tp-link.com/c6-eu-v2/data/status.json"                    **FOR ARCHER C6**
+
 # python index.py "https://emulator.tp-link.com/C54v1-US-Router/index.html#networkStatus"     **FOR ARCHER C54 (Network Status)**
 # python index.py "https://emulator.tp-link.com/c54-v1-eu-re/index.html#networkMap"           **FOR ARCHER C54 (Client List)**
-# python index.py "https://emulator.tp-link.com/TL-WR720N_V2/userRpm/StatusRpm.htm"          **FOR TL-WR720N (Status)**
-# python index.py "https://emulator.tp-link.com/TL-WR720N/userRpm/AssignedIpAddrListRpm.htm?Refresh=Refresh" **FOR TL-WR720N (DHCP)**
-# python index.py "https://emulator.tp-link.com/TL-WR802N_V1/userRpm/StatusRpm.htm"          **FOR TL-WR802N (Status)**
-# python index.py "https://emulator.tp-link.com/TL-WR802N_V1/userRpm/AssignedIpAddrListRpm.htm?Refresh=Refresh" **FOR TL-WR802N (DHCP)**
-# python index.py "https://emulator.tp-link.com/TL-WR1502Xv1-router_mode_US/data/status.json" **FOR TL-WR3002X**
+
+# python index.py "https://emulator.tp-link.com/TL-WR720N_V2/userRpm/StatusRpm.htm"                            **FOR TL-WR720N (Status)**
+# python index.py "https://emulator.tp-link.com/TL-WR720N/userRpm/AssignedIpAddrListRpm.htm?Refresh=Refresh"   **FOR TL-WR720N (DHCP)**
+
+# python index.py "https://emulator.tp-link.com/TL-WR802N_V1/userRpm/StatusRpm.htm"                               **FOR TL-WR802N (Status)**
+# python index.py "https://emulator.tp-link.com/TL-WR802N_V1/userRpm/AssignedIpAddrListRpm.htm?Refresh=Refresh"   **FOR TL-WR802N (DHCP)**
+
+# python index.py "https://emulator.tp-link.com/TL-WR1502Xv1-router_mode_US/data/status.json"   **FOR TL-WR3002X**
