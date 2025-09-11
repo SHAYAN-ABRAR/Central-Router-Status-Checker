@@ -1,0 +1,68 @@
+{
+    "timestamp": "2025-09-11 14:42:06",
+    "devices": [
+        {
+            "wire_type": "wired",
+            "macaddr": "00-0A-EB-F8-FE-C3",
+            "ipaddr": "192.168.0.3",
+            "hostname": "TP-Link_Test_Device_1"
+        },
+        {
+            "wire_type": "wired",
+            "macaddr": "00-0A-EB-04-5B-50",
+            "ipaddr": "192.168.0.11",
+            "hostname": "TP-Link_Test_Device_2"
+        }
+    ],
+    "router_status": {
+        "WAN": {
+            "MAC Address": "00-0A-EB-11-22-DE",
+            "IP Address": "192.168.137.56",
+            "Subnet Mask": "255.255.255.0",
+            "Default Gateway": "192.168.137.1",
+            "Primary DNS": "172.31.1.1",
+            "Secondary DNS": "172.31.1.2",
+            "Connection Type": "Dynamic IP"
+        },
+        "LAN": {
+            "MAC Address": "00-0A-EB-11-22-DD",
+            "IP Address": "192.168.0.1",
+            "Subnet Mask": "255.255.255.0",
+            "DHCP": "On"
+        },
+        "Wireless 2.4GHz": {
+            "Network Name (SSID)": "TP-Link_22DD",
+            "Wireless Radio": "Off",
+            "Mode": "802.11b/g/n mixed",
+            "Channel Width": "Auto",
+            "Channel": "auto (Current Channel 10)",
+            "MAC Address": "00-0A-EB-11-22-11",
+            "WDS Status": "Disabled"
+        },
+        "Wireless 5GHz": {
+            "Network Name (SSID)": "TP-Link_22DD_5G",
+            "Wireless Radio": "Off",
+            "Mode": "an802.11ac_5",
+            "Channel Width": "Auto",
+            "Channel": "auto (Current Channel 36)",
+            "MAC Address": "00-0A-EB-11-22-13",
+            "WDS Status": "Disabled"
+        },
+        "Guest Network 2.4GHz": {
+            "Network Name (SSID)": "TP-Link_Guest_22DD",
+            "Hide SSID": "Off",
+            "Wireless Radio": "Off",
+            "Allow guests to see each other": "Off"
+        },
+        "Guest Network 5GHz": {
+            "Network Name (SSID)": "TP-Link_Guest_22DD_5G_1",
+            "Hide SSID": "Off",
+            "Wireless Radio": "Off",
+            "Allow guests to see each other": "Off"
+        },
+        "Product Info": {
+            "Firmware Version": "N/A",
+            "Hardware Version": "TL-WR1502X v1.0"
+        }
+    }
+}
