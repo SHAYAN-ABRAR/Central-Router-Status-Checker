@@ -1,33 +1,32 @@
-# TP-Link Router Info Fetcher
+# TP-Link Router Information Fetcher
 
-## 📌 Overview
-This Python script collects and displays **router information, connected devices, and system stats** from multiple TP-Link models:
-- **TL-WR941HP**
-- **Archer C6**
-- **Archer C54**
+## Description
 
-It parses DHCP clients, wireless clients, WAN/LAN details, traffic statistics, firmware info, and more. Output is also saved as JSON for further analysis or integration.
+A Python script that fetches router information such as connected devices, router status, and product info from various TP-Link routers, including models like TL-WR941HP, Archer C6, Archer C54, TL-WR720N, TL-WR802N, and TL-WR3002X. The script supports multiple formats, including HTML, JSON, and DHCP data.
 
----
+## Why is This Important?
 
-## 🚀 Why is this Important?
-- **Network Security:** Quickly identify all connected devices to detect intruders.  
-- **Troubleshooting:** Check WAN/LAN status, DNS, and connection types in one shot.  
-- **Monitoring:** Log router stats (traffic, system info, wireless SSID) for auditing or debugging.  
-- **Automation:** No need to manually log in to router dashboards—data is fetched programmatically.
+This tool is essential for network administrators, home users, and developers who want to monitor, manage, or troubleshoot their TP-Link routers. It automates the process of fetching critical network data such as connected devices, IP addresses, wireless settings, and router status, helping users maintain their network effectively. It also provides insights into router performance and device behavior, which can be useful for network optimization and security auditing.
 
----
+## Who Can Use This?
 
-## 🎯 Who Can Use This?
-- **Home users** who want to monitor their Wi-Fi and check for unauthorized devices.  
-- **IT admins / Network engineers** managing small offices or labs.  
-- **Researchers & developers** interested in parsing router data for analytics or security testing.  
+- **Network Administrators**: To monitor connected devices and network settings for efficient management of the network.
+- **Home Users**: For easy access to information about connected devices, IP addresses, and router status.
+- **Developers and Enthusiasts**: For automating router data fetching, integration into larger systems, or testing router functionality.
+- **Security Auditors**: To check connected devices and review the security status of the network.
 
----
+## Features
 
-## ⚡ Features
-- Supports **three router models** with tailored functions.  
-- Retrieves and prints **device lists, LAN/WAN/Wi-Fi info, system details, traffic stats**.  
-- Saves outputs in **structured JSON**.  
-- Works with both **HTTP APIs** and **Selenium scraping** (for modern router UIs).  
-- CLI-based: simple to run, no GUI needed.
+- **Fetch Connected Devices**: Get details of all connected devices including MAC address, IP address, and lease time.
+- **Router Status Information**: Collect status data for LAN, WAN, wireless networks, and system stats.
+- **Support for Multiple Router Models**: Works with several TP-Link router models such as TL-WR941HP, Archer C6, Archer C54, TL-WR720N, TL-WR802N, and TL-WR3002X.
+- **Headless Browsing Support**: Uses `Selenium` for scraping dynamic pages where necessary.
+- **Output as JSON**: Save fetched data in JSON format for easy analysis and reporting.
+- **Works with Emulator URLs**: The script supports both local router URLs and publicly available emulator links for different TP-Link router models.
+- **Wi-Fi and Traffic Stats**: Provides detailed stats about your wireless networks (SSID, radio status, channel) and traffic data (bytes received/sent).
+
+## Requirements
+
+- Python 3.x
+- Libraries: `requests`, `beautifulsoup4`, `selenium`
+- Install dependencies: `pip install requests beautifulsoup4 selenium`
